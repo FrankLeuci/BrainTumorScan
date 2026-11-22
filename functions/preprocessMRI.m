@@ -8,6 +8,7 @@ else
     img_gray = img_raw;
 end
 
+
 % 2. Rimuove eventuali cornici di ritaglio di 2 pixel
 if size(img_gray, 1) > 20 && size(img_gray, 2) > 20
     img_gray = img_gray(3:end-2, 3:end-2);
@@ -15,7 +16,7 @@ end
 
 % 3. Denoising mediano (preserva i bordi senza alterare la luminosità globale)
 img_double   = im2double(img_gray);
-img_denoised = medfilt2(img_double, [3 3]);
+img_denoised = medfilt2(img_double);
 
 % 4. Normalizzazione lineare della dinamica [0, 1] sul 99° percentile
 fg_pixels = img_denoised(img_denoised > 0.02);
