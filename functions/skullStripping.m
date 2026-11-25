@@ -3,7 +3,7 @@ function [img_brain, brain_mask] = skullStripping(img_proc)
 
 % 1. Esclude le bande nere aggiunte dal padding
 img_smooth = imgaussfilt(img_proc, 1.5);%sfoco per eliminare singoli px scuri dovuti al rumore all'interno del cuoio capelluto
-non_pad = img_smooth > 0.015;
+non_pad = img_smooth > 0.015; %altrimenti i nero tirerebbe giù la soglia 1
 if ~any(non_pad(:))
     disp("Imm nera dopo filtro gaussiano")
     brain_mask = false(size(img_proc));
@@ -11,7 +11,7 @@ if ~any(non_pad(:))
     return;
 end
 
-% 2. Soglia a 2 livelli per separare la testa dallo sfondo
+%Soglie con metodo di Otsu (multithresh)
 levels = multithresh(img_smooth(non_pad), 2);
 valid_area = imerode(non_pad, strel('disk', 2));
 

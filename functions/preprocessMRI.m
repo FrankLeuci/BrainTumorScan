@@ -17,7 +17,7 @@ end
 img_double   = im2double(img_gray);
 img_denoised = medfilt2(img_double);
 
-% 4. Normalizzazione lineare della dinamica [0, 1] sul 99° percentile
+% Normalizzazione lineare della dinamica [0, 1] sul 99° percentile
 fg_pixels = img_denoised(img_denoised > 0.02);
 if ~isempty(fg_pixels)
     high_val = prctile(fg_pixels, 99);
