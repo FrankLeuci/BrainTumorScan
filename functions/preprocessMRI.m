@@ -1,7 +1,6 @@
 function img_proc = preprocessMRI(img_raw, target_size)
-% PREPROCESSMRI Standardizza, filtra e normalizza linearmente l'intensità della MRI.
 
-% 1. Conversione in scala di grigi se a 3 canali
+% Conversione in scala di grigi se a 3 canali
 if size(img_raw, 3) == 3
     img_gray = rgb2gray(img_raw);
 else
@@ -9,12 +8,12 @@ else
 end
 
 
-% 2. Rimuove eventuali cornici di ritaglio di 2 pixel
+% Rimuove eventuali cornici di ritaglio di 2 pixel
 if size(img_gray, 1) > 20 && size(img_gray, 2) > 20
     img_gray = img_gray(3:end-2, 3:end-2);
 end
 
-% 3. Denoising mediano (preserva i bordi senza alterare la luminosità globale)
+% Denoising mediano (preserva i bordi senza alterare la luminosità globale)
 img_double   = im2double(img_gray);
 img_denoised = medfilt2(img_double);
 

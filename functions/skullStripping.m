@@ -2,9 +2,10 @@ function [img_brain, brain_mask] = skullStripping(img_proc)
 % SKULLSTRIPPING Isola l'encefalo in modo uniforme su scansioni T1, T2 e FLAIR.
 
 % 1. Esclude le bande nere aggiunte dal padding
-img_smooth = imgaussfilt(img_proc, 1.5);
+img_smooth = imgaussfilt(img_proc, 1.5);%sfoco per eliminare singoli px scuri dovuti al rumore all'interno del cuoio capelluto
 non_pad = img_smooth > 0.015;
 if ~any(non_pad(:))
+    disp("Imm nera dopo filtro gaussiano")
     brain_mask = false(size(img_proc));
     img_brain = img_proc;
     return;
