@@ -4,7 +4,7 @@ addpath('functions');
 imds_yes = imageDatastore(fullfile('dataset', 'yes'));
 imds_no  = imageDatastore(fullfile('dataset', 'no'));
 
-% Puoi cambiare gli indici per testare diversi casi
+% indici per testare diversi casi
 idx_yes = 17;
 idx_no  = 17;
 
@@ -13,12 +13,12 @@ raw_no  = readimage(imds_no,  idx_no);
 
 target_size = [256, 256];
 
-% Pipeline su immagine con Tumore
+% Pipeline su immagine si
 proc_yes              = preprocessMRI(raw_yes, target_size);
 [brain_yes, mbrain_y] = skullStripping(proc_yes);
 [tum_yes, over_yes]   = segmentTumor(brain_yes, mbrain_y);
 
-% Pipeline su immagine Sana
+% Pipeline su immagine no
 proc_no               = preprocessMRI(raw_no, target_size);
 [brain_no, mbrain_n]  = skullStripping(proc_no);
 [tum_no, over_no]     = segmentTumor(brain_no, mbrain_n);
